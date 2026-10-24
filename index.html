@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Code Renewables</title>
+<meta name="description" content="Code Renewables builds open, practical software tools for wind and solar energy analysis.">
+<meta property="og:title" content="Code Renewables">
+<meta property="og:description" content="Open, practical software tools for wind and solar energy analysis.">
+<meta property="og:url" content="https://coderenewables.com/">
+<link rel="canonical" href="https://coderenewables.com/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23f2a93b'/%3E%3Cg stroke='%23163a35' stroke-width='5' stroke-linecap='round'%3E%3Cline x1='32' y1='32' x2='32' y2='10'/%3E%3Cline x1='32' y1='32' x2='51' y2='43'/%3E%3Cline x1='32' y1='32' x2='13' y2='43'/%3E%3C/g%3E%3Ccircle cx='32' cy='32' r='4' fill='%23163a35'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,650&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fbf6ee;
+    --bg-2: #f4ebdc;
+    --ink: #1d2b28;
+    --muted: #5b6763;
+    --line: #e4d8c4;
+    --card: #fffdf9;
+    --sun: #e8962a;
+    --sun-soft: #fbe3bf;
+    --leaf: #1f6b5c;
+    --leaf-soft: #d6ebe4;
+    --sky: #2f6f9f;
+    --sky-soft: #dbe9f4;
+    --shadow: 0 1px 2px rgba(60,40,10,.06), 0 8px 24px rgba(60,40,10,.06);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #12191a;
+      --bg-2: #18211f;
+      --ink: #eef1ea;
+      --muted: #a3ada8;
+      --line: #2a3533;
+      --card: #1a2422;
+      --sun: #f2a93b;
+      --sun-soft: #3a2c16;
+      --leaf: #5cc2a7;
+      --leaf-soft: #193a33;
+      --sky: #7ab4e0;
+      --sky-soft: #1a2e3d;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25);
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font: 400 17px/1.6 Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  a { color: inherit; }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 20px; }
+
+  /* Header */
+  header { padding: 22px 0; }
+  .nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 600; letter-spacing: -.01em; }
+  .brand svg { width: 30px; height: 30px; }
+  .nav-links { display: flex; gap: 20px; font-size: 15px; }
+  .nav-links a { text-decoration: none; color: var(--muted); }
+  .nav-links a:hover { color: var(--ink); }
+
+  /* Hero */
+  .hero { position: relative; padding: 56px 0 72px; overflow: hidden; }
+  .hero-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 40px; align-items: center; }
+  .eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--leaf); }
+  .eyebrow::before { content: ""; width: 22px; height: 2px; background: var(--sun); }
+  h1 {
+    font-family: Fraunces, Georgia, serif; font-weight: 650;
+    font-size: clamp(36px, 6vw, 60px); line-height: 1.05; letter-spacing: -.02em;
+    margin: 16px 0 20px;
+  }
+  h1 em { font-style: normal; color: var(--sun); }
+  .lede { font-size: 19px; color: var(--muted); max-width: 34em; margin: 0 0 28px; }
+  .cta { display: flex; flex-wrap: wrap; gap: 12px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 20px; border-radius: 999px; font-weight: 600; font-size: 15px;
+    text-decoration: none; border: 1.5px solid var(--ink);
+    transition: transform .15s ease, background .15s ease;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn-primary { background: var(--ink); color: var(--bg); }
+  .btn-ghost { background: transparent; }
+  .hero-art svg { width: 100%; height: auto; display: block; }
+  .blade { transform-origin: 160px 118px; animation: spin 9s linear infinite; }
+  .blade.slow { transform-origin: 262px 152px; animation-duration: 13s; }
+  .rays { transform-origin: 300px 70px; animation: spin 60s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce) { .blade, .rays { animation: none; } }
+
+  /* Sections */
+  section { padding: 64px 0; }
+  .band { background: var(--bg-2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  h2 { font-family: Fraunces, Georgia, serif; font-weight: 650; font-size: clamp(28px, 4vw, 38px); letter-spacing: -.015em; margin: 0 0 10px; }
+  .section-lede { color: var(--muted); margin: 0 0 32px; max-width: 40em; }
+
+  /* About */
+  .pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .pillar { padding: 4px 0; }
+  .pillar .icon { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; margin-bottom: 12px; }
+  .pillar h3 { margin: 0 0 6px; font-size: 17px; }
+  .pillar p { margin: 0; color: var(--muted); font-size: 15.5px; }
+
+  /* Tool cards */
+  .tools { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
+  .tool {
+    position: relative; display: flex; flex-direction: column;
+    background: var(--card); border: 1px solid var(--line); border-radius: 20px;
+    padding: 28px; box-shadow: var(--shadow); text-decoration: none;
+    transition: transform .2s ease, border-color .2s ease;
+  }
+  .tool:hover { transform: translateY(-3px); border-color: var(--accent); }
+  .tool-head { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+  .tool-mark { width: 52px; height: 52px; border-radius: 14px; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent); flex: none; }
+  .tool h3 { margin: 0; font-family: Fraunces, Georgia, serif; font-size: 26px; font-weight: 650; letter-spacing: -.01em; }
+  .tool .domain { font-size: 13.5px; color: var(--muted); }
+  .tool p { margin: 0 0 22px; color: var(--muted); }
+  .tool .go { margin-top: auto; font-weight: 600; color: var(--accent); display: inline-flex; align-items: center; gap: 6px; }
+  .tool:hover .go span { transform: translateX(3px); }
+  .tool .go span { transition: transform .2s ease; }
+  .tool.wattodds { --accent: var(--sun); --accent-soft: var(--sun-soft); }
+  .tool.sitebook { --accent: var(--leaf); --accent-soft: var(--leaf-soft); }
+
+  /* Open source */
+  .repos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .repo {
+    display: block; background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+    padding: 20px; text-decoration: none; transition: border-color .2s ease;
+  }
+  .repo:hover { border-color: var(--sky); }
+  .repo-name { font-weight: 600; display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+  .repo-name svg { color: var(--sky); flex: none; }
+  .repo p { margin: 0 0 12px; font-size: 15px; color: var(--muted); }
+  .tag { display: inline-block; font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 999px; background: var(--sky-soft); color: var(--sky); }
+  .more { margin-top: 22px; }
+
+  /* Footer */
+  footer { padding: 40px 0 48px; border-top: 1px solid var(--line); }
+  .foot { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; color: var(--muted); font-size: 15px; }
+  .social { display: flex; gap: 10px; }
+  .social a {
+    width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center;
+    border: 1px solid var(--line); color: var(--ink); background: var(--card);
+  }
+  .social a:hover { border-color: var(--ink); }
+
+  @media (max-width: 820px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .hero-art { max-width: 380px; margin: 0 auto; order: -1; }
+    .pillars, .repos { grid-template-columns: 1fr; }
+    .tools { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 520px) {
+    .wrap { padding: 0 16px; }
+    .nav-links { display: none; }
+    .hero { padding: 24px 0 48px; }
+    section { padding: 48px 0; }
+    .tool { padding: 22px; }
+  }
+  :focus-visible { outline: 2.5px solid var(--sun); outline-offset: 3px; border-radius: 6px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="/" aria-label="Code Renewables home">
+      <svg viewBox="0 0 64 64" aria-hidden="true">
+        <circle cx="32" cy="32" r="30" fill="var(--sun)"/>
+        <g stroke="#163a35" stroke-width="5" stroke-linecap="round">
+          <line x1="32" y1="32" x2="32" y2="10"/><line x1="32" y1="32" x2="51" y2="43"/><line x1="32" y1="32" x2="13" y2="43"/>
+        </g>
+        <circle cx="32" cy="32" r="4" fill="#163a35"/>
+      </svg>
+      Code Renewables
+    </a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="#tools">Tools</a>
+      <a href="#open-source">Open source</a>
+      <a href="#contact">Connect</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="eyebrow">Software for clean energy</span>
+        <h1>Tools that make renewable energy <em>easier to analyse</em>.</h1>
+        <p class="lede">Code Renewables is a small studio building practical, open software for wind and solar professionals. We turn the slow, spreadsheet-heavy parts of resource assessment and project work into fast, transparent tools.</p>
+        <div class="cta">
+          <a class="btn btn-primary" href="#tools">Explore the tools</a>
+          <a class="btn btn-ghost" href="https://github.com/coderenewables" target="_blank" rel="noopener">View on GitHub</a>
+        </div>
+      </div>
+
+      <div class="hero-art" aria-hidden="true">
+        <svg viewBox="0 0 360 300">
+          <!-- sun -->
+          <g class="rays" stroke="var(--sun)" stroke-width="3" stroke-linecap="round" opacity=".55">
+            <line x1="300" y1="22" x2="300" y2="34"/><line x1="300" y1="106" x2="300" y2="118"/>
+            <line x1="252" y1="70" x2="264" y2="70"/><line x1="336" y1="70" x2="348" y2="70"/>
+            <line x1="266" y1="36" x2="274" y2="44"/><line x1="326" y1="96" x2="334" y2="104"/>
+            <line x1="266" y1="104" x2="274" y2="96"/><line x1="326" y1="44" x2="334" y2="36"/>
+          </g>
+          <circle cx="300" cy="70" r="26" fill="var(--sun)"/>
+          <!-- hills -->
+          <path d="M0 240 C 70 200, 140 205, 200 228 S 320 210, 360 220 L360 300 L0 300 Z" fill="var(--leaf-soft)"/>
+          <path d="M0 262 C 90 238, 170 250, 240 262 S 330 254, 360 258 L360 300 L0 300 Z" fill="var(--leaf)" opacity=".9"/>
+          <!-- solar panels -->
+          <g transform="translate(28 236)">
+            <g fill="var(--sky)" stroke="var(--bg)" stroke-width="1.5">
+              <path d="M0 18 L14 0 L50 0 L36 18 Z"/>
+              <path d="M44 18 L58 0 L94 0 L80 18 Z"/>
+            </g>
+            <g stroke="var(--ink)" stroke-width="2" opacity=".6"><line x1="20" y1="18" x2="20" y2="30"/><line x1="64" y1="18" x2="64" y2="30"/></g>
+          </g>
+          <!-- big turbine -->
+          <path d="M157 118 L155 250 L165 250 L163 118 Z" fill="var(--ink)" opacity=".85"/>
+          <g class="blade" fill="var(--ink)">
+            <path d="M160 118 L156 112 L160 44 L165 112 Z"/>
+            <path d="M160 118 L156 112 L160 44 L165 112 Z" transform="rotate(120 160 118)"/>
+            <path d="M160 118 L156 112 L160 44 L165 112 Z" transform="rotate(240 160 118)"/>
+          </g>
+          <circle cx="160" cy="118" r="6" fill="var(--sun)"/>
+          <!-- small turbine -->
+          <path d="M260 152 L258.5 236 L265.5 236 L264 152 Z" fill="var(--ink)" opacity=".7"/>
+          <g class="blade slow" fill="var(--ink)" opacity=".8">
+            <path d="M262 152 L259 148 L262 106 L265 148 Z"/>
+            <path d="M262 152 L259 148 L262 106 L265 148 Z" transform="rotate(120 262 152)"/>
+            <path d="M262 152 L259 148 L262 106 L265 148 Z" transform="rotate(240 262 152)"/>
+          </g>
+          <circle cx="262" cy="152" r="4" fill="var(--sun)"/>
+          <!-- wind lines -->
+          <g stroke="var(--sky)" stroke-width="2.5" stroke-linecap="round" fill="none" opacity=".5">
+            <path d="M20 90 q 30 -10 60 0 t 50 -4"/>
+            <path d="M40 130 q 25 -8 50 0"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <h2>What we do</h2>
+      <p class="section-lede">We work where engineering meets software. Each tool comes out of a real problem in renewable project development.</p>
+      <div class="pillars">
+        <div class="pillar">
+          <div class="icon" style="background:var(--sky-soft);color:var(--sky)">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 8h11a3 3 0 1 0-3-3M3 12h15a3 3 0 1 1-3 3M3 16h8"/></svg>
+          </div>
+          <h3>Resource assessment</h3>
+          <p>Wind and solar data workflows, from cleaning raw measurements to long-term correction.</p>
+        </div>
+        <div class="pillar">
+          <div class="icon" style="background:var(--sun-soft);color:var(--sun)">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 20h18M6 16l4-5 3 3 5-7"/></svg>
+          </div>
+          <h3>Uncertainty &amp; yield</h3>
+          <p>Clear, traceable estimates of energy production and the risk around them.</p>
+        </div>
+        <div class="pillar">
+          <div class="icon" style="background:var(--leaf-soft);color:var(--leaf)">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M12 12l8-4.5M12 12v9M12 12L4 7.5"/></svg>
+          </div>
+          <h3>Open by default</h3>
+          <p>Methods you can read and check. Much of our work is open source on GitHub.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tools">
+    <div class="wrap">
+      <h2>Tools</h2>
+      <p class="section-lede">Live web apps you can use right now in your browser.</p>
+      <div class="tools">
+        <a class="tool wattodds" href="https://wattodds.coderenewables.com" target="_blank" rel="noopener">
+          <div class="tool-head">
+            <div class="tool-mark">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg>
+            </div>
+            <div>
+              <h3>WattOdds</h3>
+              <div class="domain">wattodds.coderenewables.com</div>
+            </div>
+          </div>
+          <p>Get the odds on your energy yield. Explore the probabilities behind a project's expected output (P50, P90 and beyond) and see which uncertainties drive the risk.</p>
+          <span class="go">Open WattOdds <span>&rarr;</span></span>
+        </a>
+
+        <a class="tool sitebook" href="https://sitebook.coderenewables.com" target="_blank" rel="noopener">
+          <div class="tool-head">
+            <div class="tool-mark">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></svg>
+            </div>
+            <div>
+              <h3>Sitebook</h3>
+              <div class="domain">sitebook.coderenewables.com</div>
+            </div>
+          </div>
+          <p>One organised record for each renewable site. Bring together measurement data, metadata and documentation so the whole team works from the same source of truth.</p>
+          <span class="go">Open Sitebook <span>&rarr;</span></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="open-source" class="band">
+    <div class="wrap">
+      <h2>Open source</h2>
+      <p class="section-lede">Projects you can read, run and contribute to.</p>
+      <div class="repos">
+        <a class="repo" href="https://github.com/coderenewables/gokaatru" target="_blank" rel="noopener">
+          <div class="repo-name">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h8.75a.75.75 0 0 1 .75.75v12.5a.75.75 0 0 1-.75.75h-2.5a.75.75 0 0 1 0-1.5h1.75v-2h-8a1 1 0 0 0-.71 1.7.75.75 0 0 1-1.07 1.05A2.5 2.5 0 0 1 2 11.5Zm10.5-1h-8a1 1 0 0 0-1 1v6.71A2.5 2.5 0 0 1 4.5 9h8Z"/></svg>
+            gokaatru
+          </div>
+          <p>An open-source wind resource assessment platform: an MCP server plus a workflow web app covering ingest, cleaning, shear, reanalysis and long-term correction.</p>
+          <span class="tag">Python</span>
+        </a>
+        <a class="repo" href="https://github.com/coderenewables/renewables-uncertainty" target="_blank" rel="noopener">
+          <div class="repo-name">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h8.75a.75.75 0 0 1 .75.75v12.5a.75.75 0 0 1-.75.75h-2.5a.75.75 0 0 1 0-1.5h1.75v-2h-8a1 1 0 0 0-.71 1.7.75.75 0 0 1-1.07 1.05A2.5 2.5 0 0 1 2 11.5Zm10.5-1h-8a1 1 0 0 0-1 1v6.71A2.5 2.5 0 0 1 4.5 9h8Z"/></svg>
+            renewables-uncertainty
+          </div>
+          <p>Everything about uncertainty in renewable energy: methods and references for quantifying it.</p>
+          <span class="tag">JavaScript</span>
+        </a>
+        <a class="repo" href="https://github.com/coderenewables/edh" target="_blank" rel="noopener">
+          <div class="repo-name">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h8.75a.75.75 0 0 1 .75.75v12.5a.75.75 0 0 1-.75.75h-2.5a.75.75 0 0 1 0-1.5h1.75v-2h-8a1 1 0 0 0-.71 1.7.75.75 0 0 1-1.07 1.05A2.5 2.5 0 0 1 2 11.5Zm10.5-1h-8a1 1 0 0 0-1 1v6.71A2.5 2.5 0 0 1 4.5 9h8Z"/></svg>
+            edh
+          </div>
+          <p>An energy data project in TypeScript.</p>
+          <span class="tag">TypeScript</span>
+        </a>
+      </div>
+      <p class="more"><a href="https://github.com/coderenewables" target="_blank" rel="noopener">See all projects on GitHub &rarr;</a></p>
+    </div>
+  </section>
+</main>
+
+<footer id="contact">
+  <div class="wrap foot">
+    <div>&copy; <span id="yr">2026</span> Code Renewables · Software for clean energy</div>
+    <div class="social">
+      <a href="https://github.com/coderenewables" target="_blank" rel="noopener" aria-label="GitHub">
+        <svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.530 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.150 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+      </a>
+      <a href="https://www.linkedin.com/in/nithishkannan/" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.640-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
+</body>
+</html>
