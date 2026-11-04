@@ -27,6 +27,8 @@
     --leaf-soft: #d6ebe4;
     --sky: #2f6f9f;
     --sky-soft: #dbe9f4;
+    --ember: #c4531f;
+    --ember-soft: #f9dfd0;
     --shadow: 0 1px 2px rgba(60,40,10,.06), 0 8px 24px rgba(60,40,10,.06);
   }
   @media (prefers-color-scheme: dark) {
@@ -43,6 +45,8 @@
       --leaf-soft: #193a33;
       --sky: #7ab4e0;
       --sky-soft: #1a2e3d;
+      --ember: #f08a5b;
+      --ember-soft: #3a2219;
       --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25);
     }
   }
@@ -127,6 +131,8 @@
   .tool .go span { transition: transform .2s ease; }
   .tool.wattodds { --accent: var(--sun); --accent-soft: var(--sun-soft); }
   .tool.sitebook { --accent: var(--leaf); --accent-soft: var(--leaf-soft); }
+  .tool.windnudge { --accent: var(--sky); --accent-soft: var(--sky-soft); }
+  .tool.solarnudge { --accent: var(--ember); --accent-soft: var(--ember-soft); }
 
   /* Open source */
   .repos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
@@ -310,6 +316,34 @@
           </div>
           <p>One organised record for each renewable site. Bring together measurement data, metadata and documentation so the whole team works from the same source of truth.</p>
           <span class="go">Open Sitebook <span>&rarr;</span></span>
+        </a>
+
+        <a class="tool windnudge" href="https://windnudge.coderenewables.com" target="_blank" rel="noopener">
+          <div class="tool-head">
+            <div class="tool-mark">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h10a2 2 0 1 0-2-2"/><path d="M9 8.5v13"/><path d="M5 11h11"/><path d="M6.5 15h7"/><path d="M8 19h3.5"/></svg>
+            </div>
+            <div>
+              <h3>WindNudge</h3>
+              <div class="domain">windnudge.coderenewables.com</div>
+            </div>
+          </div>
+          <p>Nudge one assumption and see how far your wind yield moves. It reruns every scenario through measured wind speed data and ranks what matters most: speed, shear, air density or losses.</p>
+          <span class="go">Open WindNudge <span>&rarr;</span></span>
+        </a>
+
+        <a class="tool solarnudge" href="https://solarnudge.coderenewables.com" target="_blank" rel="noopener">
+          <div class="tool-head">
+            <div class="tool-mark">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="17" cy="4.5" r="2.2"/><path d="M9 8.5v13"/><path d="M5 11h11"/><path d="M6.5 15h7"/><path d="M8 19h3.5"/></svg>
+            </div>
+            <div>
+              <h3>SolarNudge</h3>
+              <div class="domain">solarnudge.coderenewables.com</div>
+            </div>
+          </div>
+          <p>Nudge one assumption and see how far your PV yield moves. It reruns every scenario through hourly irradiance data and ranks what matters most: irradiance, soiling, temperature, clipping and more.</p>
+          <span class="go">Open SolarNudge <span>&rarr;</span></span>
         </a>
       </div>
     </div>
