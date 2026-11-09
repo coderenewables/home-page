@@ -29,6 +29,8 @@
     --sky-soft: #dbe9f4;
     --ember: #c4531f;
     --ember-soft: #f9dfd0;
+    --violet: #6a4bd8;
+    --violet-soft: #e7e1fb;
     --shadow: 0 1px 2px rgba(60,40,10,.06), 0 8px 24px rgba(60,40,10,.06);
   }
   @media (prefers-color-scheme: dark) {
@@ -47,6 +49,8 @@
       --sky-soft: #1a2e3d;
       --ember: #f08a5b;
       --ember-soft: #3a2219;
+      --violet: #a594f0;
+      --violet-soft: #2a2347;
       --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25);
     }
   }
@@ -133,6 +137,9 @@
   .tool.sitebook { --accent: var(--leaf); --accent-soft: var(--leaf-soft); }
   .tool.windnudge { --accent: var(--sky); --accent-soft: var(--sky-soft); }
   .tool.solarnudge { --accent: var(--ember); --accent-soft: var(--ember-soft); }
+  .tool.lossstack { --accent: var(--violet); --accent-soft: var(--violet-soft); }
+  /* an odd card out at the end spans both columns instead of leaving a gap */
+  .tools > .tool:last-child:nth-child(odd) { grid-column: 1 / -1; }
 
   /* Open source */
   .repos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
@@ -348,6 +355,20 @@
           <p>Nudge one assumption and see how far your PV yield moves. It reruns every scenario through hourly irradiance data and ranks what matters most: irradiance, soiling, temperature, clipping and more.</p>
           <span class="go">Open SolarNudge <span>&rarr;</span></span>
         </a>
+
+        <a class="tool lossstack" href="https://lossstack.coderenewables.com" target="_blank" rel="noopener">
+          <div class="tool-head">
+            <div class="tool-mark">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3v15"/><path d="M10 3v4"/><path d="M14.5 7v3"/><path d="M19 10v8"/><path d="M3 21h18"/></svg>
+            </div>
+            <div>
+              <h3>LossStack</h3>
+              <div class="domain">lossstack.coderenewables.com</div>
+            </div>
+          </div>
+          <p>See where your energy goes between gross and the meter. Build a wind or solar plant's loss stack with WattOdds' loss items, find which losses carry the uncertainty, and open the stack in WattOdds for P50 to P99.</p>
+          <span class="go">Open LossStack <span>&rarr;</span></span>
+        </a>
       </div>
     </div>
   </section>
@@ -391,7 +412,7 @@
   <div class="wrap">
     <div class="legal">
       <p><strong>Disclaimer.</strong> The tools and material here are for learning and exploration. They are provided as is, without warranty. Their results are not a substitute for a professional energy yield assessment and shouldn&rsquo;t be the only basis for investment or design decisions.</p>
-      <p><strong>Privacy.</strong> I don&rsquo;t collect personal data. This site has no analytics, cookies, sign-ups or forms. WattOdds, WindNudge and SolarNudge run entirely in your browser: files you load are processed on your device and never uploaded. Like any website, the hosting and font providers receive standard request data such as your IP address.</p>
+      <p><strong>Privacy.</strong> I don&rsquo;t collect personal data. This site has no analytics, cookies, sign-ups or forms. WattOdds, WindNudge, SolarNudge and LossStack run entirely in your browser: files you load are processed on your device and never uploaded. Like any website, the hosting and font providers receive standard request data such as your IP address.</p>
     </div>
   <div class="foot">
     <div>&copy; <span id="yr">2026</span> CodeRenewables · A personal initiative by Nithish Seenivasagam</div>
