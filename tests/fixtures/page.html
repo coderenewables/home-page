@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Suite test page</title>
+<style>body{margin:0;font:16px system-ui,sans-serif}.top{position:sticky;top:0;background:#fff;padding:12px 16px}</style>
+<script>
+  // Test fixture standing in for a tool. ?tool= picks the bar's tool, ?hub= overrides the hub URL.
+  var Q = new URLSearchParams(location.search);
+  window.CR_SUITE_HUB = Q.get('hub') || 'http://localhost:8100/suite/v1/hub.html';
+</script>
+<script src="/suite/v1/suite.js"></script>
+</head>
+<body>
+<header class="top">Test tool</header>
+<main><p>Fixture page for the suite tests.</p></main>
+<script>
+  CRSuite.mountBar({ tool: Q.get('tool') || 'lossstack', after: document.querySelector('.top') });
+</script>
+</body>
+</html>
