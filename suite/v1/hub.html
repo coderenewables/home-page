@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CodeRenewables suite storage</title>
+</head>
+<body>
+<!-- Copyright 2026 Nithish Seenivasagam (coderenewables.com). SPDX-License-Identifier: Apache-2.0
+     Suite storage hub: no UI. Tools embed this page in a hidden iframe and talk to it with postMessage.
+     Protocol and storage layout: README.md in this folder. -->
+<script>window.CR_SUITE_HUB_PAGE = true;</script>
+<script src="suite.js"></script>
+<script>
+(function () {
+  'use strict';
+  var core = window.CRSuite && window.CRSuite._core;
+  if (!core) return;
+  var store = core.createStore(function () { return window.localStorage; });
+  var peer = null; // origin of the last accepted request; events are sent only there
+
+  function allowedOrigin(origin) {
+    if (typeof origin !== 'string') return false;
+    return /^https:\/\/([a-z0-9-]+\.)?coderenewables\.com$/.test(origin) ||
+      /^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin);
+  }
+
+  function changed(projectId, section) {
+    if (!peer || window.parent === window) return;
+    var list = store.run('list');
+    var msg = {
+      crSuite: 1,
+      event: 'changed',
+      projectId: projectId || null,
+      section: section || null,
+      currentId: list.ok ? list.result.currentId : null
+    };
+    try { window.parent.postMessage(msg, peer); } catch (e) { /* parent gone */ }
+  }
+
+  window.addEventListener('message', function (event) {
+    var m = event.data;
+    if (!allowedOrigin(event.origin)) return;
+    if (!m || typeof m !== 'object' || m.crSuite !== 1 || !event.source) return;
+    peer = event.origin;
+    var res = store.run(m.op, m.args);
+    var reply = { crSuite: 1, id: m.id, ok: res.ok };
+    if (res.ok) reply.result = res.result; else reply.error = res.error;
+    try { event.source.postMessage(reply, event.origin); } catch (e) { /* requester gone */ }
+    if (res.ok && res.change) changed(res.change.projectId, res.change.section);
+  });
+
+  // Another tab wrote to the shared storage: tell the tool that is embedding us.
+  window.addEventListener('storage', function (e) {
+    if (!e || typeof e.key !== 'string' || e.key.indexOf('cr-suite:') !== 0) return;
+    var prefix = core.PROJECT_PREFIX;
+    var pid = e.key.indexOf(prefix) === 0 ? e.key.slice(prefix.length) : null;
+    changed(pid, null);
+  });
+
+  if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
+    window.__crHubTest = { allowedOrigin: allowedOrigin };
+  }
+})();
+</script>
+</body>
+</html>

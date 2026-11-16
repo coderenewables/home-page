@@ -1,0 +1,5 @@
+/suite/v1/hub.html
+  Content-Security-Policy: frame-ancestors https://*.coderenewables.com
+
+/suite/v1/suite.js
+  Cache-Control: public, max-age=300
